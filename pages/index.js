@@ -15,22 +15,23 @@ export default function Index() {
   const [today, setToday] = useState({});
   const [list, setList] = useState({});
   const [startList, setStartList] = useState({});
-  const [date, setDate] = useState(new Date());
-  const [start, setStart] = useState(new Date());
-
+  const [date, setDate] = useState();
+  const [start, setStart] = useState(moment(new Date(), "dddd MMMM DD YYYY h:mm:ss").format("YYYY-MM-DD"));
   useEffect(() => {
     fetchDataToday();
     fetchDataList();
+    fetchDataStart()
     }, []);
 
-  useEffect(() => {
-    fetchDataStart();
-  }, [start])
+    useEffect(() => {
+      fetchDataStart()
+    }, [start]);
 
     const handleChange = (value) => {
       setDate(value);
-      let d = moment(date, "MM/DD/YYYY").format("YYYY-MM-DD");
+      let d = moment(value, "dddd MMMM DD YYYY h:mm:ss").format("YYYY-MM-DD");
       setStart(d);
+      
     }
 
     const fetchDataToday = () => {
